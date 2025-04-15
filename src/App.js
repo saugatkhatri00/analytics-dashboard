@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 
+// Check if user is logged in
 const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
 function App() {

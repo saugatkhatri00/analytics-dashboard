@@ -10,8 +10,9 @@ import {
   Title,
   Tooltip,
   Legend,
-  ArcElement,
+  ArcElement, // Add ArcElement for Pie charts
 } from 'chart.js';
+import { CircleLoader } from 'react-spinners'; // Updated import for CircleLoader
 import './Dashboard.css';
 
 // Register ChartJS components
@@ -23,7 +24,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement // Register ArcElement for Pie charts
 );
 
 function Dashboard() {
@@ -42,6 +43,7 @@ function Dashboard() {
     });
 
     return () => {
+      // Cleanup function to destroy any existing charts
       const canvas = document.getElementsByTagName('canvas');
       if (canvas.length > 0) {
         const chart = ChartJS.getChart(canvas[0]);
@@ -52,12 +54,14 @@ function Dashboard() {
     };
   }, []);
 
+  // Extract metrics
   const engagementData = data.map((entry) => entry['Engagement (%)']);
   const reachData = data.map((entry) => entry['Reach']);
   const impressionsData = data.map((entry) => entry['Impressions']);
   const followersData = data.map((entry) => entry['Followers Gained']);
   const dates = data.map((entry) => entry['Date']);
 
+  // Chart data configuration for Engagement Rate vs Time
   const engagementChartData = {
     labels: dates,
     datasets: [
@@ -71,6 +75,7 @@ function Dashboard() {
     ],
   };
 
+  // Chart data configuration for Followers Gained vs Time
   const followersChartData = {
     labels: dates,
     datasets: [
@@ -84,6 +89,7 @@ function Dashboard() {
     ],
   };
 
+  // Chart data configuration for Reach vs Impressions comparison
   const reachImpressionsChartData = {
     labels: dates,
     datasets: [
@@ -104,6 +110,7 @@ function Dashboard() {
     ],
   };
 
+  // Chart data configuration for Total Campaign Performance (Pie chart)
   const totalCampaignChartData = {
     labels: ['Reach', 'Impressions', 'Followers Gained'],
     datasets: [
@@ -123,7 +130,8 @@ function Dashboard() {
   if (loading) {
     return (
       <div className="loading-container">
-        <p>Loading data, please wait...</p>
+        <CircleLoader color="#00BFFF" size={80} />
+        <p>Loading data...</p>
       </div>
     );
   }

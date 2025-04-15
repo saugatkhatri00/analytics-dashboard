@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,10 +26,12 @@ const Login = () => {
   const handleLogin = () => {
     const user = users.find(u => u.email === email && u.password === password);
     if (user) {
-      localStorage.setItem('isLoggedIn', true);
+      // Store user data in localStorage
+      localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('sheetLink', user.sheet);
       localStorage.setItem('clientName', user.clientName);
       localStorage.setItem('logoURL', user.logoURL);
+      // Redirect to the dashboard
       navigate('/dashboard');
     } else {
       alert('Invalid credentials');
@@ -40,9 +41,19 @@ const Login = () => {
   return (
     <div style={{ textAlign: 'center', marginTop: '100px' }}>
       <h2>Login</h2>
-      <input type="text" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+      <input 
+        type="text" 
+        placeholder="Email" 
+        value={email} 
+        onChange={e => setEmail(e.target.value)} 
+      />
       <br /><br />
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+      <input 
+        type="password" 
+        placeholder="Password" 
+        value={password} 
+        onChange={e => setPassword(e.target.value)} 
+      />
       <br /><br />
       <button onClick={handleLogin}>Login</button>
     </div>
